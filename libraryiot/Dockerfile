@@ -11,5 +11,5 @@ RUN pip install -r requirements.txt
 COPY . /code/
 EXPOSE 8000
 #CMD python /code/manage.py runserver 0.0.0.0:8000 
-#CMD gunicorn libraryiot.wsgi:application --bind 0.0.0.0:$PORT
-CMD gunicorn libraryiot.wsgi:application --bind 0.0.0.0:8000
+CMD gunicorn libraryiot.wsgi:application --bind 0.0.0.0:$PORT
+#CMD gunicorn libraryiot.wsgi:application --bind 0.0.0.0:8000
