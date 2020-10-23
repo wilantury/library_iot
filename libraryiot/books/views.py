@@ -18,8 +18,8 @@ from books.serializers.emails import EmailModelSerializer
 
 #utils
 from books.email.email import Sendemail
-#async IO
-import asyncio
+#thread
+import threading
 
 
 def send_alert_email(option, result):
@@ -48,13 +48,17 @@ def hello_world(request):
                                                   book_isbn=result[0]['isbn'])                                                
                 new_event.save()
                 if result[0]['status'] == False:
-                    send_alert_email(True, result=result)
+                    x = threading.Thread(target=send_alert_email, args=(True, result,))
+                    x.start()
+                    #send_alert_email(True, result=result)
 
                 return Response({"status":result[0]['status']}, status=status.HTTP_201_CREATED)
             else:
                 new_event = Logger.objects.create(id_tag_rfid=request.data['id_tag_rfid'])
                 new_event.save()
-                send_alert_email(False, result=result)
+                #send_alert_email(False, result=result)
+                x = threading.Thread(target=send_alert_email, args=(False, result,))
+                x.start()
                 return Response({"status":False}, status=status.HTTP_201_CREATED)
         except Exception as e:
             print(e)
