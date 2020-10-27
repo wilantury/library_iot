@@ -66,8 +66,8 @@ def hello_world(request):
     elif request.method == 'GET':
         #query = Books.objects.all()
         #result = BooksModelSerializer(query, many=True).data
-        query = Operations.objects.all()
-        result = OperationsModelSerializer(query, many=True).data
-
-        return Response(result)
+        #query = Operations.objects.all()
+        #result = OperationsModelSerializer(query, many=True).data
+        return Response({"beat":"OK"}, status=status.HTTP_200_OK)
+        
     return Response({"error":"Method no allowed"}, status=status.HTTP_200_OK)
